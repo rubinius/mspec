@@ -1065,24 +1065,6 @@ describe "The --unguarded option" do
   end
 end
 
-describe "The --no-ruby_guard option" do
-  before :each do
-    @options, @config = new_option
-    @options.unguarded
-  end
-
-  it "is enabled with #unguarded" do
-    @options.stub!(:on)
-    @options.should_receive(:on).with("--no-ruby_bug", an_instance_of(String))
-    @options.unguarded
-  end
-
-  it "registers the MSpec no_ruby_bug mode" do
-    MSpec.should_receive(:register_mode).with(:no_ruby_bug)
-    @options.parse "--no-ruby_bug"
-  end
-end
-
 describe "The -H, --random option" do
   before :each do
     @options, @config = new_option
@@ -1250,18 +1232,18 @@ describe "The --report-on GUARD option" do
 
   it "sets the MSpec mode to :report_on" do
     MSpec.should_receive(:register_mode).with(:report_on)
-    @options.parse ["--report-on", "ruby_bug"]
+    @options.parse ["--report-on", "platform_is"]
   end
 
   it "converts the guard name to a symbol" do
-    name = mock("ruby_bug")
+    name = mock("platform_is")
     name.should_receive(:to_sym)
     @options.parse ["--report-on", name]
   end
 
   it "saves the name of the guard" do
-    @options.parse ["--report-on", "ruby_bug"]
-    SpecGuard.guards.should == [:ruby_bug]
+    @options.parse ["--report-on", "platform_is"]
+    SpecGuard.guards.should == [:platform_is]
   end
 end
 
