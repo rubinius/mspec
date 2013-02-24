@@ -1,7 +1,7 @@
 require 'bundler/gem_tasks'
 require 'bundler/setup'
-require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:spec)
-
-task :default => :spec
+task :default do
+  bin = File.expand_path "../bin/mspec", __FILE__
+  sh "#{bin} spec"
+end

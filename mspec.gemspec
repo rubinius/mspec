@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-$:.unshift File.expand_path('../lib', __FILE__)
 require 'mspec/version'
 
 Gem::Specification.new do |gem|
@@ -35,6 +34,7 @@ so that beginning Ruby implementations can run it.
                     '--main' << 'README' <<
                     '--line-numbers'
 
+  gem.add_dependency "redcard", "~> 1.0"
+
   gem.add_development_dependency "rake",   "~> 10.0"
-  gem.add_development_dependency "rspec",  "~> 2.8"
 end
