@@ -4,7 +4,7 @@ MSpec is a framework for writing executable specifications. Its primary
 purpose is to provide a framework for RubySpec, but it is suitable for general
 usage. It uses the fewest Ruby features possible to be suitable for beginning
 Ruby implementations. All Ruby features that MSpec uses are detailed in a
-separate test suite, called laces, included with MSpec.
+separate test suite, called [laces] [1], included with MSpec.
 
 
 ## Table of Contents
@@ -15,9 +15,10 @@ separate test suite, called laces, included with MSpec.
 ## Syntax Introduction
 
 MSpec does not define any methods on any Ruby objects other than its own
-objects that it creates to execute specifications. MSpec takes inspiration
-from other testing frameworks, especially [RSpec](http://rspec.info) and
-[Bacon](https://github.com/chneukirchen/bacon).
+objects created to execute specifications, or for mocking as requested
+explicitly by the specification. In no case does MSpec define methods
+globally. MSpec takes inspiration from other testing frameworks, especially
+[RSpec](http://rspec.info) and [Bacon](https://github.com/chneukirchen/bacon).
 
 The following is a brief introduction to MSpec syntax. For complete
 documentation for each feature, see the appropriate section below.
@@ -154,4 +155,6 @@ a.meow
 verification:
 
 verification expression:
+
+[1]: Evan Phoenix introduced the idea of laces in [Rubinius](http://rubini.us)
 
