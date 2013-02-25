@@ -148,6 +148,7 @@ The syntax for stubs is similar:
 ```ruby
 stub(a).to.receive(:meow).yield(1, 2, 3).and.return(9)
 a.meow
+```
 
 
 ## Glossary
@@ -156,5 +157,5 @@ verification:
 
 verification expression:
 
-[1]: Evan Phoenix introduced the idea of laces in [Rubinius](http://rubini.us)
+[1]: http://rubini.us "Evan Phoenix introduced the idea of laces in Rubinius"
 
