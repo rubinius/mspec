@@ -34,10 +34,11 @@ describe "Cat#meow" do
 end
 ```
 
-MSpec also provides for shared groups of specs:
+MSpec also provides for naming a set of examples as a single composite
+behavior:
 
 ```ruby
-shared :animal_speak do
+behavior :animal_speak do
   it "makes a sound" do
   end
 end
@@ -73,8 +74,8 @@ The next form of `verify` takes a block:
 verify { Cat.new }.raises(InvalidPrideError)
 ```
 
-The final form of `verify` takes neither argument nor block. This example
-shows how shared specifications are verified:
+The final form of `verify` takes neither argument nor block. This sample shows
+how a set of examples representing a composite behavior is verified:
 
 ```ruby
 verify.behavior(:animal_speak)
