@@ -109,6 +109,22 @@ verify(a).lt(2).or.gt(5)
 verify(a).eq(2).or.eq(5).or.eq(8)
 ```
 
+Arbitrary predicates are supported with no special magic needed:
+
+```ruby
+verify(a).empty?
+verify(a).not.empty?
+verify(a).zero?.or.nan?.or.infinite?
+```
+
+And again with a bit of sugar:
+
+```ruby
+verify(a).is.empty?
+verify(a).is.not.empty?
+verify(a).is.zero?.or.is.nan?.or.is.infinite?
+```
+
 The verification expressions are consistent for test spies and mocks. In the
 following verification, the value `a` may be a normal object or a mock:
 
