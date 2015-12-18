@@ -44,16 +44,16 @@ describe Mock, ".replaced?" do
 
   it "returns true if a method has been stubbed on an object" do
     Mock.install_method @mock, :method_call
-    Mock.replaced?(Mock.replaced_name(@mock, :method_call)).should be_true
+    Mock.replaced?(Mock.replaced_name(@mock, :method_call)).should be_truthy
   end
 
   it "returns true if a method has been mocked on an object" do
     Mock.install_method @mock, :method_call, :stub
-    Mock.replaced?(Mock.replaced_name(@mock, :method_call)).should be_true
+    Mock.replaced?(Mock.replaced_name(@mock, :method_call)).should be_truthy
   end
 
   it "returns false if a method has not been stubbed or mocked" do
-    Mock.replaced?(Mock.replaced_name(@mock, :method_call)).should be_false
+    Mock.replaced?(Mock.replaced_name(@mock, :method_call)).should be_falsey
   end
 end
 
@@ -461,9 +461,9 @@ describe Mock, ".cleanup" do
     Mock.should_receive(:clear_replaced).with(replaced_key)
 
     replaced_name = Mock.replaced_name(@mock, :method_call)
-    Mock.replaced?(replaced_name).should be_true
+    Mock.replaced?(replaced_name).should be_truthy
 
     Mock.cleanup
-    Mock.replaced?(replaced_name).should be_false
+    Mock.replaced?(replaced_name).should be_falsey
   end
 end

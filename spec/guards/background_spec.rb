@@ -11,7 +11,7 @@ describe Object, "#process_is_foreground" do
   end
 
   it "yields if MSpec.mode?(:background) is false" do
-    MSpec.mode?(:background).should be_false
+    MSpec.mode?(:background).should be_falsey
     process_is_foreground { ScratchPad.record :yield }
     ScratchPad.recorded.should == :yield
   end

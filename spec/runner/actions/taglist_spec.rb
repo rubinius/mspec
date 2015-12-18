@@ -6,7 +6,7 @@ require 'mspec/runner/tag'
 
 describe TagListAction, "#include?" do
   it "returns true" do
-    TagListAction.new.include?(:anything).should be_true
+    TagListAction.new.include?(:anything).should be_truthy
   end
 end
 
@@ -22,12 +22,12 @@ describe TagListAction, "#===" do
 
   it "returns true if filter === string returns true" do
     @filter.should_receive(:===).with("str").and_return(true)
-    @action.===("str").should be_true
+    @action.===("str").should be_truthy
   end
 
   it "returns false if filter === string returns false" do
     @filter.should_receive(:===).with("str").and_return(false)
-    @action.===("str").should be_false
+    @action.===("str").should be_falsey
   end
 end
 

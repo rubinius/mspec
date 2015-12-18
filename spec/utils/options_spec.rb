@@ -33,11 +33,11 @@ end
 
 describe MSpecOption, "#arg?" do
   it "returns true if arg attribute is not nil" do
-    MSpecOption.new(nil, nil, "ARG", nil, nil).arg?.should be_true
+    MSpecOption.new(nil, nil, "ARG", nil, nil).arg?.should be_truthy
   end
 
   it "returns false if arg attribute is nil" do
-    MSpecOption.new(nil, nil, nil, nil, nil).arg?.should be_false
+    MSpecOption.new(nil, nil, nil, nil, nil).arg?.should be_falsey
   end
 end
 
@@ -47,16 +47,16 @@ describe MSpecOption, "#match?" do
   end
 
   it "returns true if the argument matches the short option" do
-    @opt.match?("-a").should be_true
+    @opt.match?("-a").should be_truthy
   end
 
   it "returns true if the argument matches the long option" do
-    @opt.match?("--bdc").should be_true
+    @opt.match?("--bdc").should be_truthy
   end
 
   it "returns false if the argument matches neither the short nor long option" do
-    @opt.match?("-b").should be_false
-    @opt.match?("-abdc").should be_false
+    @opt.match?("-b").should be_falsey
+    @opt.match?("-abdc").should be_falsey
   end
 end
 
@@ -1227,11 +1227,9 @@ describe "The -O, --report option" do
 end
 
 describe "The --report-on GUARD option" do
-  before :all do
-    MSpec.stub(:register_mode)
-  end
-
   before :each do
+    MSpec.stub(:register_mode)
+
     @options, @config = new_option
     @options.verify
 
@@ -1327,9 +1325,9 @@ describe "The -d, --debug option" do
 
   it "sets $MSPEC_DEBUG to true" do
     ["-d", "--debug"].each do |opt|
-      $MSPEC_DEBUG.should_not be_true
+      $MSPEC_DEBUG.should_not be_truthy
       @options.parse opt
-      $MSPEC_DEBUG.should be_true
+      $MSPEC_DEBUG.should be_truthy
       $MSPEC_DEBUG = nil
     end
   end

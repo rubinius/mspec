@@ -253,7 +253,7 @@ describe MSpecMain, "#run" do
   end
 
   it "calls #multi_exec if the command is 'ci' and the multi option is passed" do
-    @script.should_receive(:multi_exec).and_return do |arg|
+    @script.should_receive(:multi_exec) do |arg|
       arg.length.should == 3
       arg[0].should == "-v"
       arg[1].should =~ %r"#{MSPEC_HOME}/bin/mspec-ci$"
@@ -282,7 +282,7 @@ describe "The -A, --valgrind option" do
     ["-A", "--valgrind"].each do |opt|
       @config[:use_valgrind] = false
       @script.options [opt]
-      @config[:use_valgrind].should be_true
+      @config[:use_valgrind].should be_truthy
     end
   end
 end

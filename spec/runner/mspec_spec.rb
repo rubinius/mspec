@@ -103,11 +103,11 @@ describe MSpec, ".protect" do
   end
 
   it "returns true if no exception is raised" do
-    MSpec.protect("passed") { 1 }.should be_true
+    MSpec.protect("passed") { 1 }.should be_truthy
   end
 
   it "returns false if an exception is raised" do
-    MSpec.protect("testing") { raise ScratchPad.recorded }.should be_false
+    MSpec.protect("testing") { raise ScratchPad.recorded }.should be_falsey
   end
 
   it "rescues any exceptions raised when evaluating the block argument" do
@@ -184,9 +184,9 @@ describe MSpec, ".actions" do
     MSpec.store :start, []
     ScratchPad.record []
     start_one = double("one")
-    start_one.stub(:start).and_return { ScratchPad << :one }
+    start_one.stub(:start) { ScratchPad << :one }
     start_two = double("two")
-    start_two.stub(:start).and_return { ScratchPad << :two }
+    start_two.stub(:start) { ScratchPad << :two }
     MSpec.register :start, start_one
     MSpec.register :start, start_two
   end
@@ -286,7 +286,11 @@ describe MSpec, ".describe" do
 
   it "invokes the ContextState#describe method" do
     prc = lambda { }
-    @cs.should_receive(:describe).with(&prc)
+
+    @cs.should_receive(:describe) do |&block|
+      block.should == prc
+    end
+
     MSpec.describe(Object, "msg", &prc)
   end
 end
@@ -300,7 +304,7 @@ describe MSpec, ".process" do
 
   it "calls all start actions" do
     start = double("start")
-    start.stub(:start).and_return { ScratchPad.record :start }
+    start.stub(:start) { ScratchPad.record :start }
     MSpec.register :start, start
     MSpec.process
     ScratchPad.recorded.should == :start
@@ -308,7 +312,7 @@ describe MSpec, ".process" do
 
   it "calls all finish actions" do
     finish = double("finish")
-    finish.stub(:finish).and_return { ScratchPad.record :finish }
+    finish.stub(:finish) { ScratchPad.record :finish }
     MSpec.register :finish, finish
     MSpec.process
     ScratchPad.recorded.should == :finish
@@ -330,7 +334,7 @@ describe MSpec, ".files" do
 
   it "calls load actions before each file" do
     load = double("load")
-    load.stub(:load).and_return { ScratchPad.record :load }
+    load.stub(:load) { ScratchPad.record :load }
     MSpec.register :load, load
     MSpec.files
     ScratchPad.recorded.should == :load
@@ -535,37 +539,37 @@ describe MSpec, ".delete_tags" do
 
   it "deletes the tag file" do
     MSpec.delete_tags
-    File.exist?(@tags).should be_false
+    File.exist?(@tags).should be_falsey
   end
 end
 
 describe MSpec, ".expectation" do
   it "sets the flag that an expectation has been reported" do
     MSpec.clear_expectations
-    MSpec.expectation?.should be_false
+    MSpec.expectation?.should be_falsey
     MSpec.expectation
-    MSpec.expectation?.should be_true
+    MSpec.expectation?.should be_truthy
   end
 end
 
 describe MSpec, ".expectation?" do
   it "returns true if an expectation has been reported" do
     MSpec.expectation
-    MSpec.expectation?.should be_true
+    MSpec.expectation?.should be_truthy
   end
 
   it "returns false if an expectation has not been reported" do
     MSpec.clear_expectations
-    MSpec.expectation?.should be_false
+    MSpec.expectation?.should be_falsey
   end
 end
 
 describe MSpec, ".clear_expectations" do
   it "clears the flag that an expectation has been reported" do
     MSpec.expectation
-    MSpec.expectation?.should be_true
+    MSpec.expectation?.should be_truthy
     MSpec.clear_expectations
-    MSpec.expectation?.should be_false
+    MSpec.expectation?.should be_falsey
   end
 end
 

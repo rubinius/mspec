@@ -240,12 +240,12 @@ describe SpecGuard, "#standard?" do
 
   it "returns true if #implementation? returns true" do
     @guard.should_receive(:implementation?).with(:ruby).and_return(true)
-    @guard.standard?.should be_true
+    @guard.standard?.should be_truthy
   end
 
   it "returns false if #implementation? returns false" do
     @guard.should_receive(:implementation?).with(:ruby).and_return(false)
-    @guard.standard?.should be_false
+    @guard.standard?.should be_falsey
   end
 end
 

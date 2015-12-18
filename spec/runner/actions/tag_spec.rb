@@ -40,12 +40,12 @@ describe TagAction, "#exception?" do
   end
 
   it "returns false if no exception has been raised while evaluating an example" do
-    @action.exception?.should be_false
+    @action.exception?.should be_falsey
   end
 
   it "returns true if an exception was raised while evaluating an example" do
     @action.exception ExceptionState.new nil, nil, Exception.new("failed")
-    @action.exception?.should be_true
+    @action.exception?.should be_truthy
   end
 end
 
@@ -87,20 +87,20 @@ end
 describe TagAction, "#before" do
   it "resets the #exception? flag to false" do
     action = TagAction.new :add, :fail, nil, nil, nil, nil
-    action.exception?.should be_false
+    action.exception?.should be_falsey
     action.exception ExceptionState.new(nil, nil, Exception.new("Fail!"))
-    action.exception?.should be_true
+    action.exception?.should be_truthy
     action.before(ExampleState.new(ContextState.new("describe"), "it"))
-    action.exception?.should be_false
+    action.exception?.should be_falsey
   end
 end
 
 describe TagAction, "#exception" do
   it "sets the #exception? flag" do
     action = TagAction.new :add, :fail, nil, nil, nil, nil
-    action.exception?.should be_false
+    action.exception?.should be_falsey
     action.exception ExceptionState.new(nil, nil, Exception.new("Fail!"))
-    action.exception?.should be_true
+    action.exception?.should be_truthy
   end
 end
 

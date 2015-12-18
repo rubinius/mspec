@@ -49,9 +49,9 @@ describe SpecdocFormatter, "#before" do
   it "resets the #exception? flag" do
     exc = ExceptionState.new @state, nil, SpecExpectationNotMetError.new("disappointing")
     @formatter.exception exc
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
     @formatter.before @state
-    @formatter.exception?.should be_false
+    @formatter.exception?.should be_falsey
   end
 end
 

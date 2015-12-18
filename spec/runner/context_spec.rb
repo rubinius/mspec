@@ -39,11 +39,11 @@ end
 
 describe ContextState, "#shared?" do
   it "returns false when the ContextState is not shared" do
-    ContextState.new("").shared?.should be_false
+    ContextState.new("").shared?.should be_falsey
   end
 
   it "returns true when the ContextState is shared" do
-    ContextState.new("", {:shared => true}).shared?.should be_true
+    ContextState.new("", {:shared => true}).shared?.should be_truthy
   end
 end
 
@@ -105,7 +105,7 @@ describe ContextState, "#it" do
     ExampleState.should_receive(:new).with(@state, "it", @proc).and_return(@ex)
 
     add_action = double("add")
-    add_action.should_receive(:add).with(@ex).and_return { ScratchPad.record :add }
+    add_action.should_receive(:add) { ScratchPad.record :add }.with(@ex)
     MSpec.register :add, add_action
 
     @state.it("it", &@proc)
@@ -224,7 +224,7 @@ describe ContextState, "#protect" do
 
   it "returns true and does execute any blocks if check and MSpec.mode?(:pretend) are true" do
     MSpec.should_receive(:mode?).with(:pretend).and_return(true)
-    ContextState.new("").protect("message", [@a, @b]).should be_true
+    ContextState.new("").protect("message", [@a, @b]).should be_truthy
     ScratchPad.recorded.should == []
   end
 
@@ -240,11 +240,11 @@ describe ContextState, "#protect" do
   end
 
   it "returns true if none of the blocks raise an exception" do
-    ContextState.new("").protect("message", [@a, @b]).should be_true
+    ContextState.new("").protect("message", [@a, @b]).should be_truthy
   end
 
   it "returns false if any of the blocks raise an exception" do
-    ContextState.new("").protect("message", [@a, @c, @b]).should be_false
+    ContextState.new("").protect("message", [@a, @c, @b]).should be_falsey
   end
 end
 
@@ -460,7 +460,7 @@ describe ContextState, "#process" do
     MSpec.should_receive(:clear_expectations)
     @state.it("it") { ScratchPad.record MSpec.expectation? }
     @state.process
-    ScratchPad.recorded.should be_false
+    ScratchPad.recorded.should be_falsey
   end
 
   it "shuffles the spec list if MSpec.randomize? is true" do
@@ -595,7 +595,7 @@ describe ContextState, "#process" do
 
   it "calls registered :before actions with the current ExampleState instance" do
     before = double("before")
-    before.should_receive(:before).and_return {
+    before.should_receive(:before) {
       ScratchPad.record :before
       @spec_state = @state.state
     }
@@ -607,7 +607,7 @@ describe ContextState, "#process" do
 
   it "calls registered :after actions with the current ExampleState instance" do
     after = double("after")
-    after.should_receive(:after).and_return {
+    after.should_receive(:after) {
       ScratchPad.record :after
       @spec_state = @state.state
     }
@@ -635,7 +635,7 @@ describe ContextState, "#process" do
 
   it "calls registered :enter actions with the current #describe string" do
     enter = double("enter")
-    enter.should_receive(:enter).with("C#m").and_return { ScratchPad.record :enter }
+    enter.should_receive(:enter) { ScratchPad.record :enter }.with("C#m")
     MSpec.register :enter, enter
     @state.process
     ScratchPad.recorded.should == :enter
@@ -643,7 +643,7 @@ describe ContextState, "#process" do
 
   it "calls registered :leave actions" do
     leave = double("leave")
-    leave.should_receive(:leave).and_return { ScratchPad.record :leave }
+    leave.should_receive(:leave) { ScratchPad.record :leave }
     MSpec.register :leave, leave
     @state.process
     ScratchPad.recorded.should == :leave
@@ -776,7 +776,7 @@ describe ContextState, "#process in pretend mode" do
 
   it "calls registered :before actions with the current ExampleState instance" do
     before = double("before")
-    before.should_receive(:before).and_return {
+    before.should_receive(:before) {
       ScratchPad.record :before
       @spec_state = @state.state
     }
@@ -788,7 +788,7 @@ describe ContextState, "#process in pretend mode" do
 
   it "calls registered :after actions with the current ExampleState instance" do
     after = double("after")
-    after.should_receive(:after).and_return {
+    after.should_receive(:after) {
       ScratchPad.record :after
       @spec_state = @state.state
     }
@@ -899,7 +899,7 @@ describe ContextState, "#process in pretend mode" do
 
   it "calls registered :enter actions with the current #describe string" do
     enter = double("enter")
-    enter.should_receive(:enter).and_return { ScratchPad.record :enter }
+    enter.should_receive(:enter) { ScratchPad.record :enter }
     MSpec.register :enter, enter
     @state.process
     ScratchPad.recorded.should == :enter
@@ -907,7 +907,7 @@ describe ContextState, "#process in pretend mode" do
 
   it "calls registered :leave actions" do
     leave = double("leave")
-    leave.should_receive(:leave).and_return { ScratchPad.record :leave }
+    leave.should_receive(:leave) { ScratchPad.record :leave }
     MSpec.register :leave, leave
     @state.process
     ScratchPad.recorded.should == :leave
@@ -1030,12 +1030,12 @@ describe ContextState, "#filter_examples" do
 
   it "returns true if there are remaining examples to evaluate" do
     @state.examples.first.stub(:filtered?).and_return(true)
-    @state.filter_examples.should be_true
+    @state.filter_examples.should be_truthy
   end
 
   it "returns false if there are no remaining examples to evaluate" do
     @state.examples.first.stub(:filtered?).and_return(true)
     @state.examples.last.stub(:filtered?).and_return(true)
-    @state.filter_examples.should be_false
+    @state.filter_examples.should be_falsey
   end
 end

@@ -31,15 +31,15 @@ describe FileFormatter, "#load" do
   end
 
   it "resets the #failure? flag to false" do
-    @formatter.failure?.should be_true
+    @formatter.failure?.should be_truthy
     @formatter.load @state
-    @formatter.failure?.should be_false
+    @formatter.failure?.should be_falsey
   end
 
   it "resets the #exception? flag to false" do
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
     @formatter.load @state
-    @formatter.exception?.should be_false
+    @formatter.exception?.should be_falsey
   end
 end
 

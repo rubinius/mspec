@@ -360,7 +360,7 @@ describe MSpecTag, "#register" do
 
     it "sets config[:formatter] to false" do
       @script.register
-      @config[:formatter].should be_false
+      @config[:formatter].should be_falsey
     end
   end
 
@@ -382,7 +382,7 @@ describe MSpecTag, "#register" do
 
     it "sets config[:formatter] to false" do
       @script.register
-      @config[:formatter].should be_false
+      @config[:formatter].should be_falsey
     end
   end
 
@@ -410,7 +410,7 @@ describe MSpecTag, "#register" do
 
     it "sets config[:formatter] to false" do
       @script.register
-      @config[:formatter].should be_false
+      @config[:formatter].should be_falsey
     end
   end
 end

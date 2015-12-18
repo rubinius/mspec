@@ -85,16 +85,16 @@ describe DottedFormatter, "#exception" do
 
   it "sets the #failure? flag" do
     @formatter.exception @failure
-    @formatter.failure?.should be_true
+    @formatter.failure?.should be_truthy
     @formatter.exception @error
-    @formatter.failure?.should be_false
+    @formatter.failure?.should be_falsey
   end
 
   it "sets the #exception? flag" do
     @formatter.exception @error
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
     @formatter.exception @failure
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
   end
 
   it "addes the exception to the list of exceptions" do
@@ -113,25 +113,25 @@ describe DottedFormatter, "#exception?" do
   end
 
   it "returns false if there have been no exceptions" do
-    @formatter.exception?.should be_false
+    @formatter.exception?.should be_falsey
   end
 
   it "returns true if any exceptions are errors" do
     @formatter.exception @failure
     @formatter.exception @error
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
   end
 
   it "returns true if all exceptions are failures" do
     @formatter.exception @failure
     @formatter.exception @failure
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
   end
 
   it "returns true if all exceptions are errors" do
     @formatter.exception @error
     @formatter.exception @error
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
   end
 end
 
@@ -143,19 +143,19 @@ describe DottedFormatter, "#failure?" do
   end
 
   it "returns false if there have been no exceptions" do
-    @formatter.failure?.should be_false
+    @formatter.failure?.should be_falsey
   end
 
   it "returns false if any exceptions are errors" do
     @formatter.exception @failure
     @formatter.exception @error
-    @formatter.failure?.should be_false
+    @formatter.failure?.should be_falsey
   end
 
   it "returns true if all exceptions are failures" do
     @formatter.exception @failure
     @formatter.exception @failure
-    @formatter.failure?.should be_true
+    @formatter.failure?.should be_truthy
   end
 end
 
@@ -167,15 +167,15 @@ describe DottedFormatter, "#before" do
   end
 
   it "resets the #failure? flag to false" do
-    @formatter.failure?.should be_true
+    @formatter.failure?.should be_truthy
     @formatter.before @state
-    @formatter.failure?.should be_false
+    @formatter.failure?.should be_falsey
   end
 
   it "resets the #exception? flag to false" do
-    @formatter.exception?.should be_true
+    @formatter.exception?.should be_truthy
     @formatter.before @state
-    @formatter.exception?.should be_false
+    @formatter.exception?.should be_falsey
   end
 end
 
