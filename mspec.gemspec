@@ -35,6 +35,6 @@ so that beginning Ruby implementations can run it.
                     '--main' << 'README' <<
                     '--line-numbers'
 
-  gem.add_development_dependency "rake",   "~> 10.0"
+  gem.add_development_dependency "rake",   ">= 12.3.3"
   gem.add_development_dependency "rspec",  "~> 2.8"
 end
